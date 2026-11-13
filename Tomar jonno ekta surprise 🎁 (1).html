@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tomar jonno ekta surprise 🎁</title>
+<style>
+:root{--bg:#fff1f5;--card:#fff;--ink:#3a1c28;--pink:#e83e74;--soft:#ffd3e0;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a1020;--card:#3b1a2e;--ink:#ffe9f1;--pink:#ff6b9a;--soft:#5a2744;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#2a1020;--card:#3b1a2e;--ink:#ffe9f1;--pink:#ff6b9a;--soft:#5a2744;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;display:flex;align-items:center;justify-content:center;padding:16px;overflow-x:hidden}
+.card{background:var(--card);border-radius:24px;padding:28px 22px;max-width:420px;width:100%;text-align:center;box-shadow:0 10px 40px rgba(232,62,116,.25);position:relative;min-height:320px;display:flex;flex-direction:column;justify-content:center;gap:14px;animation:pop .45s ease}
+@keyframes pop{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:none}}
+.big{font-size:64px;line-height:1}
+h1{font-size:24px;margin:0}
+p{margin:0;font-size:17px;line-height:1.5}
+button{font:inherit;font-weight:700;border:0;border-radius:999px;padding:13px 26px;background:var(--pink);color:#fff;cursor:pointer;margin:4px;transition:transform .15s}
+button:active{transform:scale(.94)}
+button.alt{background:var(--soft);color:var(--ink)}
+.row{min-height:120px;position:relative;display:flex;flex-wrap:wrap;justify-content:center;align-items:center}
+.bar{height:18px;background:var(--soft);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--pink);transition:width .25s}
+.dots{font-size:13px;opacity:.6}
+.fall{position:fixed;top:-40px;font-size:28px;animation:fall linear forwards;pointer-events:none;z-index:9}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+</style>
+</head>
+<body>
+<div class="card" id="c"></div>
+<script>
+var NAME = "Jamai"; // <-- ekhane tar nam likhe dao
+var c = document.getElementById("c"), i = 0, tries = 0;
+function show(h){ c.style.animation="none"; void c.offsetWidth; c.style.animation=""; c.innerHTML=h; var d=Math.round((i/6)*100); }
+function next(){ i++; render(); }
+function confetti(list){ for(var k=0;k<40;k++){ var s=document.createElement("span"); s.className="fall"; s.textContent=list[k%list.length]; s.style.left=Math.random()*100+"vw"; s.style.animationDuration=(2+Math.random()*3)+"s"; document.body.appendChild(s); setTimeout(function(e){e.remove()}.bind(null,s),5500); } }
+function dodge(b){ var r=b.parentNode.getBoundingClientRect(); tries++; var M=["Ei dhorte parle na 😜","Ota to khub slow 🐢","Ahaa, kache eshe dekho 😂","Ami to bagh-er cheye fast 🏃","Hya bolo, tahole thambo 🥺","Ekdom hobe na 🙅","Pochondo hochche na to? 😏"]; document.getElementById("m").textContent=M[(tries-1)%M.length];
+  
+  b.style.position="absolute"; b.style.left=Math.random()*(r.width-90)+"px"; b.style.top=Math.random()*(r.height-45)+"px"; }
+function quiz(){ document.getElementById("q").innerHTML='<p><b>Correct! 🎉 Prize: ekta joss hug 🤗</b></p><button onclick="next()">Hug nilam, tarpor?</button>'; confetti(["🎉","🤗"]); }
+function boom(){ var n=3; document.getElementById("bm").innerHTML='<h1 id="cd">3</h1>'; var t=setInterval(function(){ n--; var e=document.getElementById("cd"); if(n>0){e.textContent=n;} else { clearInterval(t); e.textContent="💥 BOOM!"; c.classList.add("shake"); setTimeout(next,900); } },900); }
+function render(){
+  if(i===0) show('<div class="big">🎁</div><h1>Oi Jaan!</h1><p>Ei website ta shudhu tomar jonno banano hoyeche. Ekta secret ache... jante chao?</p><p class="dots">(Ei page ta top secret, kauke dekhabe na 🤫)</p><div><button onclick="next()">Haa, bolo!</button></div>');
+  if(i===1){ tries=0; show('<div class="big">🤔</div><h1>Ekta serious proshno</h1><p>Tomar ki mone hoy ami tomake valobashi?</p><div class="row"><button onclick="next()">Hya 💖</button><button class="alt" id="no">Na 😏</button></div><p id="m" class="dots"></p>'); var n=document.getElementById("no"); n.onmouseenter=n.ontouchstart=function(e){e.preventDefault();dodge(n)}; n.onclick=function(){dodge(n)}; }
+  if(i===2){ show('<div class="big">🔍</div><h1>Jamai-meter scan hocche...</h1><div class="bar"><i id="b"></i></div><p id="t" class="dots">Scanning...</p><div id="x"></div>'); var p=0,msgs=["Bhalo mon khujchi... 💛","Biryani bhalobasar level mapchi... 🍗","Ghumiye nak dakar level: 100% 😴"],iv=setInterval(function(){p+=10;document.getElementById("b").style.width=p+"%";document.getElementById("t").textContent=msgs[Math.floor(p/35)]||"Prai shesh...";if(p>=100){clearInterval(iv);document.getElementById("t").innerHTML="<b>Result: Shera Jamai in the world 🏆<br>(kintu ektu pagol 🤪)</b>";document.getElementById("x").innerHTML='<button onclick="next()">Aro ache!</button>';}},350); }
+  if(i===3){ show('<div class="big">⚠️</div><h1>Oooops Jaan!</h1><p>Oma tmi to ek piece eeee re baba</p><p class="dots">(karon tmi shobtheke vlo 😜)</p><div><button onclick="next()">Haha, tarpor?</button></div>'); c.classList.add("shake"); setTimeout(function(){c.classList.remove("shake")},500); }
+  if(i===4) show('<div class="big">🧠</div><h1>Quiz time!</h1><p>Amar sobcheye priyo jamai ke?</p><div id="q"><button onclick="quiz()">Tumi</button><button onclick="quiz()">Tumi-i</button><button onclick="quiz()">Obossoi tumi</button></div>');
+  if(i===5) show('<div class="big">💣</div><h1>Shesh step...</h1><p>Sabdhan! Ei button ta click korle ekta jinish hobe.</p><div id="bm"><button onclick="boom()">Click koro na! 🙈</button></div>');
+  if(i===6){ show('<div class="big">❤️</div><h1>I LOVE YOU, '+NAME+'!</h1><p>Tumi amader poribarer shera upohar. Sobsomoy hasho, sobsomoy bhalo theko. 🥰</p><div><button onclick="next()">Ekta last kotha 🎁</button></div>'); confetti(["💖","🎉","💕","✨","😍","🥳"]); }
+  if(i===7){ tries=0; show('<div class="big">🥺</div><h1>Ekta choto request...</h1><p>Eto bhalobashar por, amake ekta gift dibe to?</p><div class="row"><button onclick="next()">Hya, dibo 🎁</button><button class="alt" id="no">Na 😈</button></div><p id="m" class="dots"></p>'); var n=document.getElementById("no"); n.onmouseenter=n.ontouchstart=function(e){e.preventDefault();dodge(n)}; n.onclick=function(){dodge(n)}; }
+  if(i===8){ show('<div class="big">🎉</div><h1>Gift Approved!</h1><p>Receipt:<br>Item: Boro gift 🎁<br>Delivery: ekhoni, ekhoni, ekhoni! ⚡<br>Return policy: nai 😂</p><p class="dots">(Na dile ami tomar biryani er bhaag nebo 🍗)</p><p>Tumi amar shera Jamai. Sobsomoy amk khushi rekho r sobsomoy bhalo rekho. 🥰</p><p class="dots">P.S. Eto bhalobashar por ki ami kichu deserve kori na?</p><div><button class="alt" onclick="i=0;render()">Abar dekhao 🔁</button></div>'); confetti(["🎁","💝","🤑","🎉"]); }
+}
+render();
+</script>
+</body>
+</html>
